@@ -5,18 +5,18 @@ class CountDownTimer {
   double _radius = 1;
   bool _isActive= true;
   Timer? timer;
-  Duration _time= Duration(seconds: 0);
-  Duration _fullTime = Duration(seconds: 0);
+  Duration _time= const Duration(seconds: 0);
+  Duration _fullTime = const Duration(seconds: 0);
   int work = 30;
   int shortBreak = 5;
   int longBreak = 20;
 
   Stream<TimerModel> stream() async* {
-    yield* Stream.periodic(Duration(seconds: 1), (int a) {
+    yield* Stream.periodic(const Duration(seconds: 1), (int a) {
       String? time;
-      if (this._isActive) {
-        _time = _time! - Duration(seconds: 1);
-        _radius = _time!.inSeconds / _fullTime!.inSeconds;
+      if (_isActive) {
+        _time = _time- const Duration(seconds: 1);
+        _radius = _time.inSeconds / _fullTime.inSeconds;
         if (_time.inSeconds <= 0) {
           _isActive = false;
         }
@@ -36,17 +36,17 @@ class CountDownTimer {
 
   void startWork() {
     _radius = 1;
-    _time = Duration(minutes: this.work, seconds: 0);
+    _time = Duration(minutes: work, seconds: 0);
     _fullTime = _time;
   }
 
   void stopTimer() {
-    this._isActive = false;
+    _isActive = false;
   }
 
   void startTimer() {
     if (_time.inSeconds > 0) {
-      this._isActive = true;
+      _isActive = true;
     }
   }
 

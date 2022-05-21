@@ -8,6 +8,8 @@ import './timermodel.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -24,12 +26,14 @@ class TimerHomePage extends StatelessWidget {
   final double defaultPadding = 5.0;
   final CountDownTimer timer = CountDownTimer();
 
+  TimerHomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     timer.startWork();
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Work Timer'),
+        title: const Text('My Work Timer'),
       ),
       body: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
         final double availableWidth = constraints.maxWidth;
@@ -37,13 +41,13 @@ class TimerHomePage extends StatelessWidget {
           Row(
             children: [
               Padding(padding: EdgeInsets.all(defaultPadding),),
-              Expanded(child: ProductivityButton(color: Color(0xff009688),
+              Expanded(child: ProductivityButton(color: const Color(0xff009688),
                 text: "Work", onPressed: () => timer.startWork())),
               Padding(padding: EdgeInsets.all(defaultPadding),),
-              Expanded(child: ProductivityButton(color: Color(0xff607D8B),
+              Expanded(child: ProductivityButton(color: const Color(0xff607D8B),
                 text: "Short Break", onPressed: () => timer.startBreak(true))),
               Padding(padding: EdgeInsets.all(defaultPadding),),
-              Expanded(child: ProductivityButton(color: Color(0xff455A64),
+              Expanded(child: ProductivityButton(color: const Color(0xff455A64),
                 text: "Lonb Break", onPressed: () => timer.startBreak(false))),
               Padding(padding: EdgeInsets.all(defaultPadding),),
             ],
@@ -54,21 +58,20 @@ class TimerHomePage extends StatelessWidget {
               stream: timer.stream(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 TimerModel timer = (snapshot.data == '00:00') ? TimerModel('00:00', 1) : snapshot.data;
-                return Container(
-                    child : CircularPercentIndicator(
-                      radius: availableWidth / 2,
-                      lineWidth: 10.0,
-                      percent: 1.0,
-                      center : Text(timer.time!, style: Theme.of(context).textTheme.headline4),
-                      progressColor: Color(0xff009688),
-                    ));
+                return CircularPercentIndicator(
+                  radius: availableWidth / 2,
+                  lineWidth: 10.0,
+                  percent: 1.0,
+                  center : Text(timer.time!, style: Theme.of(context).textTheme.headline4),
+                  progressColor: const Color(0xff009688),
+                );
                 })),
           Row(children: [
             Padding(padding: EdgeInsets.all(defaultPadding),),
-            Expanded(child: ProductivityButton(color: Color(0xff212121),
+            Expanded(child: ProductivityButton(color: const Color(0xff212121),
               text: "Stop", onPressed: () => timer.stopTimer())),
             Padding(padding: EdgeInsets.all(defaultPadding),),
-            Expanded(child: ProductivityButton(color: Color(0xff009688),
+            Expanded(child: ProductivityButton(color: const Color(0xff009688),
               text: "Restart", onPressed: () => timer.startTimer())),
             Padding(padding: EdgeInsets.all(defaultPadding),),
           ],)
